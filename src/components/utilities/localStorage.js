@@ -1,4 +1,4 @@
-export const getStoredCart = () => {
+const getStoredCart = () => {
   const storedCartString = localStorage.getItem("cart");
   if (storedCartString) {
     return JSON.parse(storedCartString);
@@ -18,4 +18,10 @@ const addToLS = (id) => {
   saveCartToLS(cart);
 };
 
-export { addToLS }; 
+const removeFromLS = (id) => {
+  const cart = getStoredCart();
+  const remaining = cart.filter((bottleId) => bottleId !== id);
+  saveCartToLS(remaining);
+};
+
+export { addToLS, removeFromLS, getStoredCart };

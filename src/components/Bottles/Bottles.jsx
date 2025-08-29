@@ -3,7 +3,7 @@ import Bottle from "../Bottle/Bottle";
 import "./Bottles.css";
 import { addToLS, getStoredCart } from "../utilities/localStorage";
 import Cart from "../Cart/Cart";
-
+import { removeFromLS } from "../utilities/localStorage";
 const Bottles = () => {
   const [bottles, setBottles] = useState([]);
   const [cart, setCart] = useState([]);
@@ -39,10 +39,15 @@ const Bottles = () => {
     addToLS(bottle.id);
   };
 
+  const handleRemoveFromCart = (id) => {
+    //visual cart remove
+    //remove from local storage
+    removeFromLS(id);
+  };
   return (
     <div>
       <h2>Bottles Available: {bottles.length}</h2>
-      <Cart cart={cart}></Cart>
+      <Cart cart={cart} handleRemoveFromCart={handleRemoveFromCart}></Cart>
       <div className="bottle-container">
         {bottles.map((bottles) => (
           <Bottle
